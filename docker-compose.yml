@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  app:
+    build: docker/app/
+    working_dir: /opt/web3
+    ports:
+      # ui
+      - 3000:3000
+      # astar node
+      - 9933:9933
+      - 9944:9944
+    volumes:
+      - ./:/opt/web3
+    tty: true
+

@@ -1,0 +1,44 @@
+FROM ubuntu:22.04
+
+# Install package
+RUN apt update && apt install -y build-essential &&\
+    apt install --assume-yes git clang curl libssl-dev protobuf-compiler binaryen llvm libudev-dev pkg-config wget
+
+# Install Binaryen
+WORKDIR /root
+RUN wget https://github.com/WebAssembly/binaryen/releases/download/version_111/binaryen-version_111-x86_64-linux.tar.gz &&\
+    tar -zxvf binaryen-version_111-x86_64-linux.tar.gz &&\
+    rm binaryen-version_111-x86_64-linux.tar.gz
+ENV PATH $PATH:/root/binaryen-version_111/bin
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH $PATH:/root/.cargo/bin
+
+# Install ink! CLI
+RUN rustup default stable
+RUN rustup update
+RUN rustup update nightly
+RUN rustup target add wasm32-unknown-unknown --toolchain nightly
+RUN cargo install cargo-dylint dylint-link
+RUN cargo install cargo-contract --force --locked
+RUN rustup component add rust-src --toolchain nightly
+RUN rustup target add wasm32-unknown-unknown --toolchain nightly
+
+# Install Node.js and Yarn
+RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash - &&\
+    apt install -y nodejs &&\
+    npm install -g yarn
+
+# Install Swanky CLI
+WORKDIR /root
+RUN wget https://github.com/AstarNetwork/swanky-cli/releases/download/v1.0.7/swanky-v1.0.7-0b6ed86-linux-x64.tar.gz &&\
+    tar -zxvf swanky-v1.0.7-0b6ed86-linux-x64.tar.gz &&\
+    rm swanky-v1.0.7-0b6ed86-linux-x64.tar.gz
+ENV PATH $PATH:/root/swanky/bin
+
+# Install swanky-node
+RUN wget https://github.com/AstarNetwork/swanky-node/releases/download/v0.9.1/swanky-node-v0.9.1-ubuntu-x86_64.tar.gz &&\
+    tar -zxvf swanky-node-v0.9.1-ubuntu-x86_64.tar.gz &&\
+    rm swanky-node-v0.9.1-ubuntu-x86_64.tar.gz
+
