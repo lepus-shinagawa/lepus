@@ -38,7 +38,13 @@ RUN wget https://github.com/AstarNetwork/swanky-cli/releases/download/v1.0.7/swa
 ENV PATH $PATH:/root/swanky/bin
 
 # Install swanky-node
+WORKDIR /root/bin
 RUN wget https://github.com/AstarNetwork/swanky-node/releases/download/v0.9.1/swanky-node-v0.9.1-ubuntu-x86_64.tar.gz &&\
     tar -zxvf swanky-node-v0.9.1-ubuntu-x86_64.tar.gz &&\
     rm swanky-node-v0.9.1-ubuntu-x86_64.tar.gz
+ENV PATH $PATH:/root/bin
 
+RUN apt install -y bash-completion
+RUN echo "\n\
+. /etc/bash_completion\n\
+" >> /root/.bashrc

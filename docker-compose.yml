@@ -1,16 +1,15 @@
 version: '3.8'
 services:
   app:
-    # build: docker/app/
-    image: shinji19/astar-dev:1.0.0
+    image: shinji19/astar-dev:1.0.3
     working_dir: /opt/lepus
     ports:
       # ui
       - 3000:3000
-      # astar node
+      # astar node(tcp)
       - 9933:9933
+      # astar node(ws)
       - 9944:9944
     volumes:
       - ./:/opt/lepus
     tty: true
-
