@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   app:
-    build: docker/app/
+    # build: docker/app/
+    image: shinji19/astar-dev:1.0.0
     working_dir: /opt/lepus
     ports:
       # ui
