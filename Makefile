@@ -1,4 +1,4 @@
-DOCKER_IMAGE_VERSION := 1.0.3
+DOCKER_IMAGE_VERSION := 1.0.4
 
 build:
 	docker compose build

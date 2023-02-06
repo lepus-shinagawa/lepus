@@ -44,7 +44,10 @@ RUN wget https://github.com/AstarNetwork/swanky-node/releases/download/v0.9.1/sw
     rm swanky-node-v0.9.1-ubuntu-x86_64.tar.gz
 ENV PATH $PATH:/root/bin
 
+# TODO まとめる
 RUN apt install -y bash-completion
 RUN echo "\n\
-. /etc/bash_completion\n\
-" >> /root/.bashrc
+    . /etc/bash_completion\n\
+    " >> /root/.bashrc
+
+RUN npm install -g @subql/cli@1.11.0

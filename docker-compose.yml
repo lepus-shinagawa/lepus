@@ -1,14 +1,14 @@
 version: '3.8'
 services:
   app:
-    image: shinji19/astar-dev:1.0.3
+    image: shinji19/astar-dev:1.0.4
     working_dir: /opt/lepus
     ports:
       # ui
       - 3000:3000
-      # astar node(tcp)
+      # astar localnode(tcp)
       - 9933:9933
-      # astar node(ws)
+      # astar localnode(ws)
       - 9944:9944
     volumes:
       - ./:/opt/lepus
