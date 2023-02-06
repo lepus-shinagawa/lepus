@@ -1,6 +1,7 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
 import DailyVolumeLeaderBoard from './components/DailyVolumeLeaderBoard'
+import TotalTransferLeaderBoad from './components/TotalTransferLeaderBoard'
 
 function App() {
   return (
@@ -14,7 +15,32 @@ function App() {
         </a>
       </div>
       <h1>On-chain Identity Scoring Leader Board</h1>
+      <hr
+        style={{
+          background: "#FFFFFF",
+          height: "2px",
+          border: "none",
+        }}
+      />
+      <hr
+        style={{
+          background: "#FFFFFF",
+          height: "2px",
+          border: "none",
+        }}
+      />
+      <h1>Daily Volume Leader Board</h1>
       <DailyVolumeLeaderBoard />
+
+      <hr
+        style={{
+          background: "#FFFFFF",
+          height: "2px",
+          border: "none",
+        }}
+      />
+      <h1>Total Transfer Leader Board</h1>
+      <TotalTransferLeaderBoad />
     </div>
   )
 }
