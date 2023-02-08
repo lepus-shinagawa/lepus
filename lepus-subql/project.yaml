@@ -41,3 +41,27 @@ dataSources:
             method: Transfer
         - handler: handleCall
           kind: substrate/CallHandler
+  # tofuNFT
+  - kind: substrate/FrontierEvm
+    # TODO 本番デプロイするときに直す
+    startBlock: 2883507
+    processor:
+      file: ./node_modules/@subql/frontier-evm-processor/dist/bundle.js
+      options:
+        abi: erc20
+        address: "0x7Cae7FeB55349FeADB8f84468F692450D92597bc"
+    assets:
+      erc20:
+        file: ./abis/tofuNFT.abi.json
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleTofuNFTEvInventoryUpdateFrontierEvmEvent
+          kind: substrate/FrontierEvmEvent
+          filter:
+            topics:
+              # EvInventoryUpdateイベントだけ処理する
+              - "0x5beea7b3b87c573953fec05007114d17712e5775d364acc106d8da9e74849033"
+        - handler: handleTofuNFTFrontierEvmCall
+          kind: substrate/FrontierEvmCall
+

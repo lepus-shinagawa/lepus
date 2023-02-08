@@ -1,0 +1,1557 @@
+[
+    {
+        "type": "constructor",
+        "stateMutability": "nonpayable",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "weth_",
+                "internalType": "contract IWETH"
+            }
+        ]
+    },
+    {
+        "type": "event",
+        "name": "EvAuctionRefund",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256",
+                "indexed": true
+            },
+            {
+                "type": "address",
+                "name": "bidder",
+                "internalType": "address",
+                "indexed": false
+            },
+            {
+                "type": "uint256",
+                "name": "refund",
+                "internalType": "uint256",
+                "indexed": false
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "EvCouponSpent",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256",
+                "indexed": true
+            },
+            {
+                "type": "uint256",
+                "name": "couponId",
+                "internalType": "uint256",
+                "indexed": true
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "EvInventoryUpdate",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256",
+                "indexed": true
+            },
+            {
+                "type": "tuple",
+                "name": "inventory",
+                "internalType": "struct MarketNG.Inventory",
+                "indexed": false,
+                "components": [
+                    {
+                        "type": "address",
+                        "name": "seller",
+                        "internalType": "address"
+                    },
+                    {
+                        "type": "address",
+                        "name": "buyer",
+                        "internalType": "address"
+                    },
+                    {
+                        "type": "address",
+                        "name": "currency",
+                        "internalType": "contract IERC20"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "price",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "netPrice",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "deadline",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "uint8",
+                        "name": "kind",
+                        "internalType": "uint8"
+                    },
+                    {
+                        "type": "uint8",
+                        "name": "status",
+                        "internalType": "uint8"
+                    }
+                ]
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "EvMarketSignerUpdate",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "addr",
+                "internalType": "address",
+                "indexed": false
+            },
+            {
+                "type": "bool",
+                "name": "isRemoval",
+                "internalType": "bool",
+                "indexed": false
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "EvSettingsUpdated",
+        "inputs": [],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "EvSwapped",
+        "inputs": [
+            {
+                "type": "tuple",
+                "name": "req",
+                "internalType": "struct MarketNG.Swap",
+                "indexed": false,
+                "components": [
+                    {
+                        "type": "bytes32",
+                        "name": "salt",
+                        "internalType": "bytes32"
+                    },
+                    {
+                        "type": "address",
+                        "name": "creator",
+                        "internalType": "address"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "deadline",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "tuple[]",
+                        "name": "has",
+                        "internalType": "struct MarketNG.Pair721[]",
+                        "components": [
+                            {
+                                "type": "address",
+                                "name": "token",
+                                "internalType": "contract IERC721"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "tokenId",
+                                "internalType": "uint256"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "tuple[]",
+                        "name": "wants",
+                        "internalType": "struct MarketNG.Pair721[]",
+                        "components": [
+                            {
+                                "type": "address",
+                                "name": "token",
+                                "internalType": "contract IERC721"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "tokenId",
+                                "internalType": "uint256"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "bytes",
+                "name": "signature",
+                "internalType": "bytes",
+                "indexed": false
+            },
+            {
+                "type": "address",
+                "name": "swapper",
+                "internalType": "address",
+                "indexed": false
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "OwnershipTransferred",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "previousOwner",
+                "internalType": "address",
+                "indexed": true
+            },
+            {
+                "type": "address",
+                "name": "newOwner",
+                "internalType": "address",
+                "indexed": true
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Paused",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "account",
+                "internalType": "address",
+                "indexed": false
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Unpaused",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "account",
+                "internalType": "address",
+                "indexed": false
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "KIND_AUCTION",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "KIND_BUY",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "KIND_SELL",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_ACCEPT_AUCTION",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_ACCEPT_BUY",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_BID",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_BUY",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_CANCEL_BUY",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_COMPLETE_AUCTION",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_COMPLETE_BUY",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_COMPLETE_SELL",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_MAX",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_MIN",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "OP_REJECT_BUY",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "name": "RATE_BASE",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "STATUS_CANCELLED",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "STATUS_DONE",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "STATUS_OPEN",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "TOKEN_1155",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "TOKEN_721",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint8",
+                "name": "",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "TOKEN_MINT",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "cancelBuys",
+        "inputs": [
+            {
+                "type": "uint256[]",
+                "name": "ids",
+                "internalType": "uint256[]"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "couponSpent",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "emergencyCancelAuction",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            },
+            {
+                "type": "bool",
+                "name": "noBundle",
+                "internalType": "bool"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "hasInv",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "pure",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "hasSignedIntention",
+        "inputs": [
+            {
+                "type": "uint8",
+                "name": "op",
+                "internalType": "uint8"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "inCaseMoneyGetsStuck",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "to",
+                "internalType": "address"
+            },
+            {
+                "type": "address",
+                "name": "currency",
+                "internalType": "contract IERC20"
+            },
+            {
+                "type": "uint256",
+                "name": "amount",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "address",
+                "name": "seller",
+                "internalType": "address"
+            },
+            {
+                "type": "address",
+                "name": "buyer",
+                "internalType": "address"
+            },
+            {
+                "type": "address",
+                "name": "currency",
+                "internalType": "contract IERC20"
+            },
+            {
+                "type": "uint256",
+                "name": "price",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "netPrice",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "deadline",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint8",
+                "name": "kind",
+                "internalType": "uint8"
+            },
+            {
+                "type": "uint8",
+                "name": "status",
+                "internalType": "uint8"
+            }
+        ],
+        "name": "inventories",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "name": "inventoryTokenCounts",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "address",
+                "name": "token",
+                "internalType": "address"
+            },
+            {
+                "type": "uint256",
+                "name": "tokenId",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "amount",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint8",
+                "name": "kind",
+                "internalType": "uint8"
+            },
+            {
+                "type": "bytes",
+                "name": "mintData",
+                "internalType": "bytes"
+            }
+        ],
+        "name": "inventoryTokens",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "isAuction",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "isAuctionOpen",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "isBundleApproved",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "invId",
+                "internalType": "uint256"
+            },
+            {
+                "type": "address",
+                "name": "owner",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "isBuy",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "isBuyOpen",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "isExpired",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "isSell",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "pure",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "isSignatureValid",
+        "inputs": [
+            {
+                "type": "bytes",
+                "name": "signature",
+                "internalType": "bytes"
+            },
+            {
+                "type": "bytes32",
+                "name": "hash",
+                "internalType": "bytes32"
+            },
+            {
+                "type": "address",
+                "name": "signer",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "isStatusOpen",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "marketSigners",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "name": "minAuctionDuration",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "name": "minAuctionIncrement",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bytes4",
+                "name": "",
+                "internalType": "bytes4"
+            }
+        ],
+        "name": "onERC1155BatchReceived",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "operator",
+                "internalType": "address"
+            },
+            {
+                "type": "address",
+                "name": "from",
+                "internalType": "address"
+            },
+            {
+                "type": "uint256[]",
+                "name": "ids",
+                "internalType": "uint256[]"
+            },
+            {
+                "type": "uint256[]",
+                "name": "values",
+                "internalType": "uint256[]"
+            },
+            {
+                "type": "bytes",
+                "name": "data",
+                "internalType": "bytes"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bytes4",
+                "name": "",
+                "internalType": "bytes4"
+            }
+        ],
+        "name": "onERC1155Received",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "operator",
+                "internalType": "address"
+            },
+            {
+                "type": "address",
+                "name": "from",
+                "internalType": "address"
+            },
+            {
+                "type": "uint256",
+                "name": "id",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "value",
+                "internalType": "uint256"
+            },
+            {
+                "type": "bytes",
+                "name": "data",
+                "internalType": "bytes"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bytes4",
+                "name": "",
+                "internalType": "bytes4"
+            }
+        ],
+        "name": "onERC721Received",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "operator",
+                "internalType": "address"
+            },
+            {
+                "type": "address",
+                "name": "from",
+                "internalType": "address"
+            },
+            {
+                "type": "uint256",
+                "name": "tokenId",
+                "internalType": "uint256"
+            },
+            {
+                "type": "bytes",
+                "name": "data",
+                "internalType": "bytes"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "address"
+            }
+        ],
+        "name": "owner",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "pause",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "paused",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "renounceOwnership",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "payable",
+        "outputs": [],
+        "name": "run",
+        "inputs": [
+            {
+                "type": "tuple",
+                "name": "intent",
+                "internalType": "struct MarketNG.Intention",
+                "components": [
+                    {
+                        "type": "address",
+                        "name": "user",
+                        "internalType": "address"
+                    },
+                    {
+                        "type": "tuple[]",
+                        "name": "bundle",
+                        "internalType": "struct MarketNG.TokenPair[]",
+                        "components": [
+                            {
+                                "type": "address",
+                                "name": "token",
+                                "internalType": "address"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "tokenId",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "amount",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "type": "uint8",
+                                "name": "kind",
+                                "internalType": "uint8"
+                            },
+                            {
+                                "type": "bytes",
+                                "name": "mintData",
+                                "internalType": "bytes"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "address",
+                        "name": "currency",
+                        "internalType": "contract IERC20"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "price",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "deadline",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "bytes32",
+                        "name": "salt",
+                        "internalType": "bytes32"
+                    },
+                    {
+                        "type": "uint8",
+                        "name": "kind",
+                        "internalType": "uint8"
+                    }
+                ]
+            },
+            {
+                "type": "tuple",
+                "name": "detail",
+                "internalType": "struct MarketNG.Detail",
+                "components": [
+                    {
+                        "type": "bytes32",
+                        "name": "intentionHash",
+                        "internalType": "bytes32"
+                    },
+                    {
+                        "type": "address",
+                        "name": "signer",
+                        "internalType": "address"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "txDeadline",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "bytes32",
+                        "name": "salt",
+                        "internalType": "bytes32"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "id",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "uint8",
+                        "name": "opcode",
+                        "internalType": "uint8"
+                    },
+                    {
+                        "type": "address",
+                        "name": "caller",
+                        "internalType": "address"
+                    },
+                    {
+                        "type": "address",
+                        "name": "currency",
+                        "internalType": "contract IERC20"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "price",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "incentiveRate",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "tuple",
+                        "name": "settlement",
+                        "internalType": "struct MarketNG.Settlement",
+                        "components": [
+                            {
+                                "type": "uint256[]",
+                                "name": "coupons",
+                                "internalType": "uint256[]"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "feeRate",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "royaltyRate",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "buyerCashbackRate",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "type": "address",
+                                "name": "feeAddress",
+                                "internalType": "address"
+                            },
+                            {
+                                "type": "address",
+                                "name": "royaltyAddress",
+                                "internalType": "address"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "tuple[]",
+                        "name": "bundle",
+                        "internalType": "struct MarketNG.TokenPair[]",
+                        "components": [
+                            {
+                                "type": "address",
+                                "name": "token",
+                                "internalType": "address"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "tokenId",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "amount",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "type": "uint8",
+                                "name": "kind",
+                                "internalType": "uint8"
+                            },
+                            {
+                                "type": "bytes",
+                                "name": "mintData",
+                                "internalType": "bytes"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "deadline",
+                        "internalType": "uint256"
+                    }
+                ]
+            },
+            {
+                "type": "bytes",
+                "name": "sigIntent",
+                "internalType": "bytes"
+            },
+            {
+                "type": "bytes",
+                "name": "sigDetail",
+                "internalType": "bytes"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "send",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "to",
+                "internalType": "address"
+            },
+            {
+                "type": "tuple[]",
+                "name": "tokens",
+                "internalType": "struct MarketNG.Pair721[]",
+                "components": [
+                    {
+                        "type": "address",
+                        "name": "token",
+                        "internalType": "contract IERC721"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "tokenId",
+                        "internalType": "uint256"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "pure",
+        "outputs": [
+            {
+                "type": "bool",
+                "name": "",
+                "internalType": "bool"
+            }
+        ],
+        "name": "supportsInterface",
+        "inputs": [
+            {
+                "type": "bytes4",
+                "name": "interfaceId",
+                "internalType": "bytes4"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "swap",
+        "inputs": [
+            {
+                "type": "tuple",
+                "name": "req",
+                "internalType": "struct MarketNG.Swap",
+                "components": [
+                    {
+                        "type": "bytes32",
+                        "name": "salt",
+                        "internalType": "bytes32"
+                    },
+                    {
+                        "type": "address",
+                        "name": "creator",
+                        "internalType": "address"
+                    },
+                    {
+                        "type": "uint256",
+                        "name": "deadline",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "type": "tuple[]",
+                        "name": "has",
+                        "internalType": "struct MarketNG.Pair721[]",
+                        "components": [
+                            {
+                                "type": "address",
+                                "name": "token",
+                                "internalType": "contract IERC721"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "tokenId",
+                                "internalType": "uint256"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "tuple[]",
+                        "name": "wants",
+                        "internalType": "struct MarketNG.Pair721[]",
+                        "components": [
+                            {
+                                "type": "address",
+                                "name": "token",
+                                "internalType": "contract IERC721"
+                            },
+                            {
+                                "type": "uint256",
+                                "name": "tokenId",
+                                "internalType": "uint256"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "bytes",
+                "name": "signature",
+                "internalType": "bytes"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "transferOwnership",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "newOwner",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "unpause",
+        "inputs": []
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "updateSettings",
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "minAuctionIncrement_",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "name": "minAuctionDuration_",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "name": "updateSigner",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "addr",
+                "internalType": "address"
+            },
+            {
+                "type": "bool",
+                "name": "remove",
+                "internalType": "bool"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "contract IWETH"
+            }
+        ],
+        "name": "weth",
+        "inputs": []
+    },
+    {
+        "type": "receive",
+        "stateMutability": "payable"
+    }
+]
