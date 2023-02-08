@@ -1,28 +1,8 @@
-# To improve query performance, we strongly suggest adding indexes to any field that you plan to filter or sort by
-# Add the `@index` or `@index(unique: true)` annotation after any non-key field
-# https://academy.subquery.network/build/graphql.html#indexing-by-non-primary-key-field
+type Tvl @entity{
 
-type StarterEntity @entity {
-  id: ID! #id is a required field
-  field1: Int!
+  id: ID! # AccountId
 
-  field2: String #filed2 is an optional field
-  field3: BigInt
+  startedAt: Date!
 
-  field4: Date
-
-  field5: Boolean
-}
-
-type Transfer @entity {
-  id: ID! # id field is always required and must look like this
-  amount: BigInt # Amount that is transferred
-  blockNumber: BigInt # The block height of the transfer
-  from: String! # The account that transfers are made from
-  to: String! # The account that transfers are made to
-}
-
-type Account @entity{
-  id: String!
-  totalTransferAmount: BigInt!
+  tvl: BigInt!
 }
