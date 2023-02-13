@@ -2,18 +2,32 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import DailyVolumeLeaderBoard from './components/DailyVolumeLeaderBoard'
 import TotalTransferLeaderBoad from './components/TotalTransferLeaderBoard'
+import RabitPicture from './pictures/rabit_icon.png'
+import EarthPicture from './pictures/earth.jpg'
+import Header from './components/Header'
+import Card from './components/Card'
+import { Text } from '@mantine/core'
+
 
 function App() {
+  const author_info = {
+    name:"Team Lepus",
+    image: RabitPicture
+  }
   return (
     <div className="App">
+      <Header/>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <img src={RabitPicture} alt='rabit picture' height={200}/>
+        <div className='introText'>
+          <Text className='Bigtitle'>Welcome!</Text>
+          <Text className='Smalltitle'>to</Text>
+          <Text className='Bigtitle'>Lepus Scoring</Text>
+        </div>
       </div>
+      <Card image={EarthPicture}  title="On-chain Identity Scoring Leader Board" link='https://github.com'
+        description='You can check the lanking of the transaction frequency here!'
+        rating="New Arrival!" author={author_info}/>
       <h1>On-chain Identity Scoring Leader Board</h1>
       <hr
         style={{

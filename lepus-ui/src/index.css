@@ -55,6 +55,26 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.introText {
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  display: flex;
+  flex-direction: column;
+}
+.Bigtitle {
+  font-size: 50px;
+}
+.Smalltitle {
+  font-size: 30px;
+}
+
+.HeaderLine {
+  display:flex;
+  flex-direction: row;
+}
+.rightOption {
+  text-align: right;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -67,3 +87,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
