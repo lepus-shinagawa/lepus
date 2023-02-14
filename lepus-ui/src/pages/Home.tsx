@@ -4,6 +4,7 @@ import EarthPicture from '../pictures/earth.jpg'
 import SpacePicture from '../pictures/SpacePicture.jpg'
 import Header from '../components/Header'
 import Card from '../components/Card'
+import Footer, { FooterCenteredProps } from '../components/Footer'
 import { Text } from '@mantine/core'
 
 function App() {
@@ -11,6 +12,10 @@ function App() {
     name:"Team Lepus",
     image: RabitPicture
   }
+  const footerInfo = [{
+      link:"https://github.com",
+      label:"Lepus Team",
+    }]
   return (
     <div className="App">
       <Header/>
@@ -22,13 +27,13 @@ function App() {
           <Text style={{"fontSize":50, "fontFamily":"cursive"}}>Lepus Scoring</Text>
         </div>
       </div>
+      <h1 style={{"color":"#00CCFF", "fontFamily":"fantasy"}}>On-chain Identity Scoring Leader Board</h1>
       <Card image={EarthPicture}  title="Daily Volume Leader Board" link='/DailyVolume'
         description='You can check the lanking of daily transaction amount here!'
         rating="New Arrival!" author={author_info}/>
       <Card image={SpacePicture}  title="Total Transfer Leader Board" link='/TotalTransfer'
-        description='You can check the lanking of the transaction frequency here!'
+        description='You can check the lanking of the total transaction amount here!'
         rating="Most Majour!" author={author_info}/>
-      <h1>On-chain Identity Scoring Leader Board</h1>
       <hr
         style={{
           background: "#FFFFFF",
@@ -36,15 +41,7 @@ function App() {
           border: "none",
         }}
       />
-      <hr
-        style={{
-          background: "#FFFFFF",
-          height: "2px",
-          border: "none",
-        }}
-      />
-      
-      
+      <Footer links={footerInfo} />
     </div>
   )
 }

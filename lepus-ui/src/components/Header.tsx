@@ -19,10 +19,10 @@ function retHeader() {
         <Group>
           <Burger opened={tf} onClick={onClick} size="sm" color="white"/>
           <img src={IconRabit} height={70} />
-          <div style={{"color":"#FFFACD"}}>LepusTeam</div>
+          <div style={{"color":"#FFFACD"}}>Lepus Scoring</div>
         </Group>
         <Button className="rightOption" radius="xl" sx={{ height: 30 }}>
-          Get early access
+          About Team Lepus
         </Button>
       </Container>
     </Header>
