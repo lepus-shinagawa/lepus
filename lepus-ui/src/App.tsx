@@ -1,48 +1,22 @@
-import reactLogo from './assets/react.svg'
-import './App.css'
-import DailyVolumeLeaderBoard from './components/DailyVolumeLeaderBoard'
-import TotalTransferLeaderBoad from './components/TotalTransferLeaderBoard'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import DailyVolumeLanking from "./pages/DailyVolume";
+import TotalTransferLanking from "./pages/TotalTransfer"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>On-chain Identity Scoring Leader Board</h1>
-      <hr
-        style={{
-          background: "#FFFFFF",
-          height: "2px",
-          border: "none",
-        }}
-      />
-      <hr
-        style={{
-          background: "#FFFFFF",
-          height: "2px",
-          border: "none",
-        }}
-      />
-      <h1>Daily Volume Leader Board</h1>
-      <DailyVolumeLeaderBoard />
+    <BrowserRouter>
+      <Routes>
+        <Route path={`/`} element={<Home />} />
+      </Routes>
+      <Routes>
+        <Route path={`/DailyVolume`} element={<DailyVolumeLanking />} />
+      </Routes>
+      <Routes>
+        <Route path={`/TotalTransfer`} element={<TotalTransferLanking />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-      <hr
-        style={{
-          background: "#FFFFFF",
-          height: "2px",
-          border: "none",
-        }}
-      />
-      <h1>Total Transfer Leader Board</h1>
-      <TotalTransferLeaderBoad />
-    </div>
-  )
-}
-
-export default App
+export default App;
