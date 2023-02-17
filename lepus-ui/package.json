@@ -10,15 +10,19 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.7",
-    "@emotion/react": "^11.10.5",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@mantine/core": "^5.10.3",
     "@mantine/ds": "^5.10.3",
     "@mantine/hooks": "^5.10.3",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/material": "^5.11.9",
     "@tabler/icons": "^2.3.0",
     "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
