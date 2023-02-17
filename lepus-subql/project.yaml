@@ -22,6 +22,7 @@ network:
   # https://documentation.onfinality.io/support/the-enhanced-api-service
   # endpoint: "wss://astar.api.onfinality.io/ws?apikey=25d287da-1754-496b-9948-c6af1571a18a"
   endpoint: "wss://rpc.astar.network"
+  # endpoint: "wss://astar-rpc.dwellir.com"
   # Optionally provide the HTTP endpoint of a full chain dictionary to speed up processing
   dictionary: "https://api.subquery.network/sq/subquery/astar-dictionary"
   chaintypes:
@@ -41,3 +42,28 @@ dataSources:
             method: Transfer
         - handler: handleCall
           kind: substrate/CallHandler
+  # tofuNFT
+  - kind: substrate/FrontierEvm
+    startBlock: 1
+    processor:
+      file: ./node_modules/@subql/frontier-evm-processor/dist/bundle.js
+      options:
+        abi: erc20
+        address: "0x7Cae7FeB55349FeADB8f84468F692450D92597bc"
+    assets:
+      erc20:
+        file: ./abis/tofuNFT.abi.json
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        # EvInventoryUpdateイベントのハンドラ
+        - handler: handleTofuNFTEvInventoryUpdateFrontierEvmEvent
+          kind: substrate/FrontierEvmEvent
+          filter:
+            topics:
+              - "0x5beea7b3b87c573953fec05007114d17712e5775d364acc106d8da9e74849033"
+        # runの実行のハンドラ
+        - handler: handleTofuNFTRunFrontierEvmCall
+          kind: substrate/FrontierEvmCall
+          filter:
+            function: "0xba847759"

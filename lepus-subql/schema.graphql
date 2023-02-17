@@ -22,7 +22,18 @@ type Transfer @entity {
   to: String! # The account that transfers are made to
 }
 
-type Account @entity{
-  id: String!
-  totalTransferAmount: BigInt!
+type Account @entity {
+  id: ID!
+  totalTransferAmount: BigInt
+  nftForesightScore: BigInt
+}
+
+type TofuNFT @entity {
+  id: ID!
+  ownerHistoryAccountIds: [ID]
+}
+
+type TofuNFTTransaction @entity {
+  id: ID!
+  tokenId: ID
 }
