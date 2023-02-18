@@ -15,6 +15,7 @@
     "@mantine/core": "^5.10.3",
     "@mantine/ds": "^5.10.3",
     "@mantine/hooks": "^5.10.3",
+    "@metamask/onboarding": "^1.0.1",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
     "@tabler/icons": "^2.3.0",
