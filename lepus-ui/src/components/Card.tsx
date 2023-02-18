@@ -1,5 +1,6 @@
 import { ActionIcon, Avatar, Badge, Card, Center, createStyles, Group, Image, Text } from "@mantine/core";
 import { IconHeart } from "@tabler/icons";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -55,21 +56,20 @@ export function ArticleCard({
   ...others
 }: ArticleCardProps & Omit<React.ComponentPropsWithoutRef<'div'>, keyof ArticleCardProps>) {
   const { classes, cx, theme } = useStyles();
-  const linkProps = { href: link, target: '_blank', rel: 'noopener noreferrer' };
 
   return (
     <Card withBorder radius="md" className={cx(classes.card, className)} {...others}>
       <Card.Section>
-        <a {...linkProps}>
+        <Link to={link}>
           <Image src={image} height={180} />
-        </a>
+        </Link>
       </Card.Section>
 
       <Badge className={classes.rating} variant="gradient" gradient={{ from: 'yellow', to: 'red' }}>
         {rating}
       </Badge>
 
-      <Text className={classes.title} weight={500} component="a" {...linkProps}>
+      <Text className={classes.title} weight={500} component={Link} to={link}>
         {title}
       </Text>
 
