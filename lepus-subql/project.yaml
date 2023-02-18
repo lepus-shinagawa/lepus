@@ -20,9 +20,11 @@ network:
   # When developing your project we suggest getting a private API key
   # You can get them from OnFinality for free https://app.onfinality.io
   # https://documentation.onfinality.io/support/the-enhanced-api-service
-  # endpoint: "wss://astar.api.onfinality.io/ws?apikey=25d287da-1754-496b-9948-c6af1571a18a"
   endpoint: "wss://rpc.astar.network"
+  # endpoint: "wss://astar.public.blastapi.io"
   # endpoint: "wss://astar-rpc.dwellir.com"
+  # endpoint: "wss://astar.api.onfinality.io/public-ws"
+  # endpoint: "wss://1rpc.io/astr"
   # Optionally provide the HTTP endpoint of a full chain dictionary to speed up processing
   dictionary: "https://api.subquery.network/sq/subquery/astar-dictionary"
   chaintypes:
