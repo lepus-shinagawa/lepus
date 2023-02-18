@@ -44,6 +44,26 @@ dataSources:
             method: Transfer
         - handler: handleCall
           kind: substrate/CallHandler
+  - kind: substrate/Runtime
+    startBlock: 814289
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleDAppStakingReward
+          kind: substrate/EventHandler
+          filter:
+            module: dappsStaking
+            method: Reward
+        - handler: handleBondAndStake
+          kind: substrate/EventHandler
+          filter:
+            module: dappsStaking
+            method: BondAndStake
+        - handler: handleUnbondAndUnstake
+          kind: substrate/EventHandler
+          filter:
+            module: dappsStaking
+            method: UnbondAndUnstake
   # tofuNFT
   - kind: substrate/FrontierEvm
     startBlock: 1
