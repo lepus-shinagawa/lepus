@@ -3,6 +3,7 @@ import { useQuery, gql } from '@apollo/client'
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import MetaMaskConnector from './MetaMaskConnector';
 import IdentityScore from './IdentityScore';
+import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 
 const client = new ApolloClient({
     uri: import.meta.env.VITE_SUBQUERY_LEPUS_ENDPOINT,
@@ -28,6 +29,8 @@ export default function NFTForesightLeaderBoad() {
     const first = 10;
     const [offset, setOffset] = React.useState(0);
     const [accounts, setAccounts] = React.useState([] as string[]);
+    const [polkadotAccounts, setPolkadotAccounts] =
+        React.useState([] as string[]);
 
     const { loading, error, data } = useQuery(
         ACCOUNTS,
@@ -36,6 +39,15 @@ export default function NFTForesightLeaderBoad() {
             variables: { first, offset }
         }
     );
+
+    React.useEffect(() => {
+        (async () => {
+            await web3Enable('my cool dapp');
+            const allAccounts = await web3Accounts();
+            setPolkadotAccounts(allAccounts.map(x => x.address));
+        })()
+    }, []);
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : {error.message}</p>;
 
@@ -43,6 +55,25 @@ export default function NFTForesightLeaderBoad() {
         <>
             <MetaMaskConnector setAccounts={setAccounts}></MetaMaskConnector>
             {accounts.map(account => {
+                return (
+                    <IdentityScore
+                        key={account}
+                        client={client}
+                        id={account}
+                    />
+                )
+            })}
+
+            <hr
+                style={{
+                    background: "#FFFFFF",
+                    height: "2px",
+                    border: "none",
+                }}
+            />
+
+            <div>polkadot</div>
+            {polkadotAccounts.map(account => {
                 return (
                     <IdentityScore
                         key={account}
