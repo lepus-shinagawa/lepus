@@ -1,31 +1,34 @@
-specVersion: 1.0.0
-name: subql-lepus
-version: 1.0.0
-runner:
-  node:
-    name: "@subql/node"
-    version: ">=1.0.0"
-  query:
-    name: "@subql/query"
-    version: "*"
+specVersion: 0.2.0
+name: astar
+version: 0.0.4
 description: This SubQuery project can be use as a starting point for Astar network
-repository: "https://github.com/subquery/subql-starter"
+repository: https://github.com/dappsDAO/dapps-protocol/tree/main/packages/subql-astar
 schema:
   file: ./schema.graphql
 network:
-  chainId: "0x9eb76c5184c4ab8679d2d5d819fdf90b9c001403e9e17da2e14b6d8aec4029c6"
-  endpoint: "wss://astar.api.onfinality.io/public-ws"
-  dictionary: "https://api.subquery.network/sq/subquery/astar-dictionary"
+  endpoint: "wss://rpc.astar.network"
+  genesisHash: "0x9eb76c5184c4ab8679d2d5d819fdf90b9c001403e9e17da2e14b6d8aec4029c6"
+  dictionary: https://api.subquery.network/sq/subquery/astar-dictionary
   chaintypes:
     file: ./dist/chaintypes.js
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 1000000
+    startBlock: 814289
     mapping:
       file: ./dist/index.js
       handlers:
-        - handler: handleNewEraEvent
+        - handler: handleDAppStakingReward
           kind: substrate/EventHandler
           filter:
             module: dappsStaking
-            method: NewDappStakingEra
+            method: Reward
+        - handler: handleBondAndStake
+          kind: substrate/EventHandler
+          filter:
+            module: dappsStaking
+            method: BondAndStake
+        - handler: handleUnbondAndUnstake
+          kind: substrate/EventHandler
+          filter:
+            module: dappsStaking
+            method: UnbondAndUnstake
