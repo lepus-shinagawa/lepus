@@ -37,3 +37,60 @@ type TofuNFTTransaction @entity {
   id: ID!
   tokenId: ID
 }
+
+type Contract @entity {
+  id: ID! #SmartContractAddress
+  totalReward: Float!
+  totalStaked: Float!
+  rewards: [DAppStakingReward] @derivedFrom(field: "contract")
+  stakes: [BondAndStake] @derivedFrom(field: "contract")
+  unstakes: [UnbondAndUnstake] @derivedFrom(field: "contract")
+}
+
+type DAppStakingReward @entity {
+  id: ID! #blockHeight-eventIdx
+  account: Account!
+  contract: Contract!
+  contractType: ContractType!
+  reward: Float! #BalanceOf
+  eraIndex: Int!
+  timestamp: Date!
+}
+
+enum ContractType {
+  EVM
+  WASM
+}
+
+type Account2 @entity {
+  id: ID! #address
+  totalRewarded: Float!
+  totalStaking: Float!
+  rewards: [DAppStakingReward] @derivedFrom(field: "account")
+  stakes: [BondAndStake] @derivedFrom(field: "account")
+  unstakes: [UnbondAndUnstake] @derivedFrom(field: "account")
+}
+
+type AllClaimedReward @entity {
+  id: ID!
+  amount: Float!
+  count: BigInt!
+}
+
+type BondAndStake @entity {
+  id: ID! #blockHeight-eventIdx
+  account: Account!
+  contract: Contract!
+  contractType: ContractType!
+  amount: Float! #BalanceOf
+  timestamp: Date!
+}
+
+type UnbondAndUnstake @entity {
+  id: ID! #blockHeight-eventIdx
+  account: Account!
+  contract: Contract!
+  contractType: ContractType!
+  amount: Float! #BalanceOf
+  timestamp: Date!
+}
