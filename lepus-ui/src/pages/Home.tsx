@@ -28,15 +28,15 @@ function App() {
         </div>
       </div>
       <h1 style={{ "color": "#00CCFF", "fontFamily": "fantasy" }}>On-chain Identity Scoring Leader Board</h1>
-      <Card image={EarthPicture} title="Daily Volume Leader Board" link='/DailyVolume'
-        description='You can check the lanking of daily transaction amount here!'
-        rating="New Arrival!" author={author_info} />
-      <Card image={SpacePicture} title="Total Transfer Leader Board" link='/TotalTransfer'
-        description='You can check the lanking of the total transaction amount here!'
-        rating="Most Majour!" author={author_info} />
       <Card image={SpacePicture} title="NFT foresight Leader Board" link='/NFTForesight'
         description='You can check the lanking of the NFT foresight here!'
         rating="Most Majour!" author={author_info} />
+      <Card image={EarthPicture} title="Staking Leader Board" link='/Staking'
+        description='You can check the lanking of staking here!'
+        rating="New Arrival!" author={author_info} />
+      <Card image={EarthPicture} title="Staking Reward Leader Board" link='/StakingReward'
+        description='You can check the lanking of staking reward here!'
+        rating="New Arrival!" author={author_info} />
       <hr
         style={{
           background: "#FFFFFF",
