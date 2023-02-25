@@ -4,11 +4,21 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import MetaMaskConnector from './MetaMaskConnector';
 import IdentityScore from './IdentityScore';
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
+import Grid from '@mui/material/Grid';
+import Rank from './Rank';
 
 const client = new ApolloClient({
     uri: import.meta.env.VITE_SUBQUERY_LEPUS_ENDPOINT,
     cache: new InMemoryCache(),
 })
+const ACCOUNT = gql`
+    query Account($id: String!) {
+        account(id: $id) {
+            id
+            nftForesightScore
+        }
+    }
+`;
 
 const ACCOUNTS = gql`
     query Account($first: Int!, $offset: Int!){
@@ -53,51 +63,46 @@ export default function NFTForesightLeaderBoad() {
 
     return (
         <>
-            <MetaMaskConnector setAccounts={setAccounts}></MetaMaskConnector>
-            {accounts.map(account => {
-                return (
-                    <IdentityScore
-                        key={account}
-                        client={client}
-                        id={account}
-                    />
-                )
-            })}
+            <h2>Your scores</h2>
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <MetaMaskConnector setAccounts={setAccounts}></MetaMaskConnector>
+                    {accounts.map(account => {
+                        return (
+                            <IdentityScore
+                                key={account}
+                                client={client}
+                                id={account}
+                                query={ACCOUNT}
+                            />
+                        )
+                    })}
+                </Grid>
+                <Grid item xs={6}>
+                    <div>polkadot{'{.js}'}</div>
+                    {polkadotAccounts.map(account => {
+                        return (
+                            <IdentityScore
+                                key={account}
+                                client={client}
+                                id={account}
+                                query={ACCOUNT}
+                            />
+                        )
+                    })}
+                </Grid>
+            </Grid>
 
-            <hr
-                style={{
-                    background: "#FFFFFF",
-                    height: "2px",
-                    border: "none",
-                }}
-            />
-
-            <div>polkadot</div>
-            {polkadotAccounts.map(account => {
-                return (
-                    <IdentityScore
-                        key={account}
-                        client={client}
-                        id={account}
-                    />
-                )
-            })}
-
-            <hr
-                style={{
-                    background: "#FFFFFF",
-                    height: "2px",
-                    border: "none",
-                }}
-            />
-
+            <div style={{ padding: 20 }}></div>
+            <h2>Leader board</h2>
             {Object.keys(data.accounts.nodes).map(i => {
                 const account = data.accounts.nodes[i];
                 return (
                     <div key={i}>
-                        <h3>No.{Number(i) + 1} userAddress: {account.id}</h3>
-                        <div>nftForesightScore: {account.nftForesightScore}</div>
-                        <br />
+                        <Rank n={Number(i)+1} />
+                        <div>{account.id}</div>
+                        <div>score: {account.nftForesightScore}</div>
+                        <div style={{ padding: 20 }} />
                     </div >
                 )
             })}
