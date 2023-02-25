@@ -2,12 +2,14 @@
 
 NFTとAstar Dapps stakingのイベントに基づいたOn-chain Identity Scoring System
 
-SubQueryを利用してastarのトランザクションイベントから二つのOn-chain Identity Scoring Systemを実装しました
+SubQueryを利用してastarのトランザクションイベントから二つのOn-chain Identity Scoring Systemを実装しました。また、確認するためのリーダーボードを実装しました。
 
 - NFT先見の明
   - https://github.com/lepus-shinagawa/lepus/issues/3
 - Astar Dapps stakingへの貢献度可視化
   - https://github.com/lepus-shinagawa/lepus/issues/17
+- リーダーボード
+  - https://lepus-shinagawa.github.io/docs/
 
 ## SubQuery実装
 
