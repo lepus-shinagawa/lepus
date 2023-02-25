@@ -34,6 +34,9 @@ function App() {
       <Card image={SpacePicture} title="Total Transfer Leader Board" link='/TotalTransfer'
         description='You can check the lanking of the total transaction amount here!'
         rating="Most Majour!" author={author_info} />
+      <Card image={SpacePicture} title="NFT foresight Leader Board" link='/NFTForesight'
+        description='You can check the lanking of the NFT foresight here!'
+        rating="Most Majour!" author={author_info} />
       <hr
         style={{
           background: "#FFFFFF",

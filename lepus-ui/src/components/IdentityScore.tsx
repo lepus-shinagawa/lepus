@@ -1,26 +1,18 @@
 import React from 'react';
-import { ApolloClient, useQuery, gql, NormalizedCacheObject } from '@apollo/client';
+import { ApolloClient, useQuery, NormalizedCacheObject, DocumentNode } from '@apollo/client';
 
 interface Props {
     client: ApolloClient<NormalizedCacheObject>,
     id: string,
+    query: DocumentNode,
 }
-
-const ACCOUNT = gql`
-    query Account($id: String!) {
-        account(id: $id) {
-            id
-            nftForesightScore
-        }
-    }
-`;
 
 export default function IdentityScore(props: Props) {
     const [message, setMessage] = React.useState('');
     const [score, setScore] = React.useState(0);
 
     const { loading, error, data } = useQuery(
-        ACCOUNT,
+        props.query,
         {
             client: props.client,
             variables: { id: props.id }
