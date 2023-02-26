@@ -77,7 +77,17 @@ export async function handleTofuNFTEvInventoryUpdateFrontierEvmEvent(
     // logger.info(`token id: ${tofuNFT.id}`);
     tofuNFT.ownerHistoryAccountIds.push(buyer);
     await tofuNFT.save();
-    await Account.create({ id: buyer, nftForesightScore: BigInt(0) }).save();
+
+    const account = await Account.get(buyer);
+    if (!account) {
+        await Account.create({
+            id: buyer,
+            totalTransferAmount: BigInt(0),
+            nftForesightScore: BigInt(0),
+        })
+            .save();
+    }
+
     // logger.info("saved")
 
     // logger.info(JSON.stringify(tofuNFT.ownerHistoryAccountIds));
@@ -87,15 +97,16 @@ export async function handleTofuNFTEvInventoryUpdateFrontierEvmEvent(
     ) as Account[];
 
     const n = accounts.length;
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < n - 1; i++) {
         // ((n-2) - i) ** 2 が足し込まれているはずなので、差分だけ足す
         accounts[i].nftForesightScore +=
-            BigInt((n - i) ** 2 - ((n - 1) - i) ** 2);
+            BigInt((n - 1 - i) ** 2 - (n - 2 - i) ** 2);
     }
 
     const data = accounts.map(function (x) {
         return {
             id: x.id,
+            totalTransferAmount: x.totalTransferAmount,
             nftForesightScore: x.nftForesightScore,
         }
     });
