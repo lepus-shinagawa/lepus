@@ -35,11 +35,13 @@ export async function handleEvent(event: SubstrateEvent): Promise<void> {
 
   let account = await Account.get(from.toString());
   if (!account) {
-    account = new Account(from.toString());
-    account.totalTransferAmount = transfer.amount;
-  } else {
-    account.totalTransferAmount += transfer.amount;
+    account = Account.create({
+      id: from.toString(),
+      totalTransferAmount: BigInt(0),
+      nftForesightScore: BigInt(0),
+    });
   }
+  account.totalTransferAmount += transfer.amount;
   await account.save();
 }
 

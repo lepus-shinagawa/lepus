@@ -24,8 +24,8 @@ type Transfer @entity {
 
 type Account @entity {
   id: ID!
-  totalTransferAmount: BigInt
-  nftForesightScore: BigInt
+  totalTransferAmount: BigInt!
+  nftForesightScore: BigInt!
 }
 
 type TofuNFT @entity {
